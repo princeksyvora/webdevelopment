@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Yourself</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <form class="form" onsubmit="RegisterUser(event)">
+            <h3><em>REGISTER</em></h3>
+            <label> First Name:</label><input type="text" id="firstName" placeholder="Enter your first name" required pattern="[A-Za-z]+">
+            <label> Last Name:</label><input type="text" id="lastName" placeholder="Enter your last name" required pattern="[A-Za-z]+">
+            <label> Gender</label><select id="Gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Transgender">Transgender</option>
+            </select>
+            <label> E-mail:</label><input type="email" id="mailid" placeholder="joy@gmail.com" required>
+            <label> Username:</label><input type="text" id="username" placeholder="joy123 or joyoy12" required>
+            <label> Password</label><input type="password" id="password" placeholder="Enter password" required minlength="8">
+            <select id="roles" required>
+                <option value="admin">Admin</option>
+                <option value="operations">Operation</option>
+                <option value="sales">Sales</option>
+            </select>
+            <button type="submit">Register</button>
+            <h4>Already Have an Account?</h4>
+            <h4><a href="index.html">Login</a></h4>
+        </form>
+    </div> 
+    <script src="script.js"></script>
+</body>
+</html>
