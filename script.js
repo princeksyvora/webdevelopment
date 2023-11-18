@@ -21,10 +21,8 @@ function RegisterUser(event){
         Role: role
     };
     let oldUsers = sessionStorage.getItem('A');
-    // console.log("one", oldUsers);
 
     let oldU = oldUsers ? JSON.parse(oldUsers) : [];
-    // console.log(oldU);
     
     const existingUser = oldU.find(user => user.Email === email && user.Username === usrname);
     if (existingUser) {
@@ -35,7 +33,6 @@ function RegisterUser(event){
     oldU.push(newUser);
     alert("You are registered successfully");
 
-    // console.log(users);
     const sendStr= JSON.stringify(oldU);
     sessionStorage.setItem('A',sendStr);
     window.location.href="index.html";
@@ -44,35 +41,26 @@ function RegisterUser(event){
 
 let validateUser;
 
-
-
 function LoginUsers(event){
     event.preventDefault();
 
     const getStr = sessionStorage.getItem('A');
     const users2 = JSON.parse(getStr);
-    // console.log(users2);
 
     const lusername= document.getElementById("Ausername").value;
     const lpassword= document.getElementById("Apassword").value;
 
-    // console.log(lusername);
-    
     validateUser = users2.find(user => user.Username === lusername && user.Password === lpassword);
-    console.log(users2.Username);
-    console.log(users2.Password);
-    console.log(validateUser);
-
+    
     if(validateUser){
         alert("Hurray! You are logged in. Welcome");
 
         sessionStorage.setItem('loginCheck', true)
-        // const sendArr= JSON.stringify(users2);
-        // sessionStorage.setItem('A',sendArr);
+        sessionStorage.setItem('userRole', validateUser.Role); 
         window.location.href="welcome.html";
     }
     else{
-        alert("Invalid details or Not a Registered User");
+        alert("Invalid credentials or Not a Registered User");
         sessionStorage.setItem('loginCheck', false)
     }
 }
@@ -80,25 +68,24 @@ function LoginUsers(event){
 
 
 function displayUsers(){
-    // const loginCheck = sessionStorage.getItem('loginCheck');
-    // console.log('Is logged in:', loginCheck);
+  
+    const currentUserRole = sessionStorage.getItem('userRole');
     const getArr = sessionStorage.getItem('A');
     let users3 = JSON.parse(getArr);
-    console.log(users3[0].Role);
+    
+    // console.log(currentUserRole);
     
 
-    if(users3[0].Role === "admin"){
-    // console.log("Hello:");
+    if(currentUserRole === "admin"){
     const userItems= document.getElementById("users");
     userItems.innerHTML="";
-    // console.log("Hello:");
     users3.forEach(usr => {
         const items=document.createElement("li");
         items.textContent= `first_name: ${usr.firstName}, last_name: ${usr.lastName}, Gender: ${usr.Gender}, Email: ${usr.Email}, Username: ${usr.Username}, Role: ${usr.Role}`;
         userItems.appendChild(items);
     });
     } 
-  else if(users3[0].Role === "operations"){
+  else if(currentUserRole === "operations"){
     const userItems= document.getElementById("users");
     userItems.innerHTML="";
     users3.forEach(usr => {
@@ -110,9 +97,7 @@ function displayUsers(){
     }
     else{
         const userItems= document.getElementById("users");
-        // console.log("User Items:", userItems);
         userItems.innerHTML="";
-        // console.log("users3:", users3);
         users3.forEach(usr => {
             if(usr.Role==="sales"){
             const items=document.createElement("li");
